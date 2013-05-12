@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <script type="text/javascript" src="js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="script/Common.js"></script>
+    <script type="text/javascript" src="script/Point.js"></script>
+    <script type="text/javascript" src="script/ScaFile.js"></script>
+    <script type="text/javascript" src="script/App.js"></script>
+    <script type="text/javascript" src="Hicharts-3.0.1/js/highcharts.js"></script>
+    <script type="text/javascript" src="Hicharts-3.0.1/js/modules/exporting.js"></script>
+
+    <script type="text/javascript">
+
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            // Great success! All the File APIs are supported.
+        } else {
+            alert('The File APIs are not fully supported in this browser.');
+        }
+
+    </script>
+</head>
+<body>
+    <div>Add files</div>
+    <div><input type="file" id="inpFile" multiple="multiple" /></div>
+    <div>
+        <ul id="divFileNames"></ul>
+    </div>
+
+    <pre id="dev"></pre>
+
+    <div id="chartContainer" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+</body>
+</html>
