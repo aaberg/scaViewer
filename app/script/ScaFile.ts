@@ -1,6 +1,6 @@
 ///<reference path='Point.ts' />
 ///<reference path='Common.ts' />
-///<reference path='../js/jquery.d.ts' />
+///<reference path='./jquery.d.ts' />
 class ScaFile{
 
     public file: File;

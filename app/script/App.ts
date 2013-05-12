@@ -1,7 +1,7 @@
 ///<reference path='Point.ts' />
 ///<reference path='ScaFile.ts' />
-///<reference path='../js/jquery.d.ts' />
-///<reference path='../js/highcharts.d.ts' />
+///<reference path='./jquery.d.ts' />
+///<reference path='./highcharts.d.ts' />
 ///<reference path='Common.ts' />
 ///<reference path='chart-options.ts' />
 class AcsApp{
