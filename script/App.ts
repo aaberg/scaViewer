@@ -3,16 +3,23 @@
 ///<reference path='../js/jquery.d.ts' />
 ///<reference path='../js/highcharts.d.ts' />
 ///<reference path='Common.ts' />
+///<reference path='chart-options.ts' />
 class AcsApp{
     constructor() {
         $('#inpFile').change( (e) => this.onFileSelected(e));
+        $('#inpTitle, #inpSubtitle').keyup( (e) => this.onTitleChanged(e));
+        $('#inpXmin, #inpXmax').keyup( () => this.onXMinOrMaxChanged());
 
         this.initChart();
+
+        // initial invokes
+        this.onTitleChanged(null);
+        this.onXMinOrMaxChanged();
     }
 
     public selectedFiles: ScaFile[] = new ScaFile[];
 
-    chart : Highcharts.Chart;
+    private chart;
 
     public onFileSelected(e) {
 
@@ -40,9 +47,16 @@ class AcsApp{
 
     public initChart() {
 
-        this.chart = new Highcharts.Chart({
+//        this.chart = new Highcharts.Chart(<any>themeOptions);
+        this.chart = new Highcharts.Chart(<any>{
             title:{
                 text:'bla bla'
+            },
+            subtitle: {
+                style: {
+                    color: '#666666',
+                    font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
+                }
             },
             chart: {
                 renderTo: 'chartContainer',
@@ -50,7 +64,17 @@ class AcsApp{
             },
             xAxis: {
                 min:200,
-                max:500
+                max:500,
+                gridLineWidth: 1,
+                lineColor: '#000',
+                tickColor: '#000'
+            },
+            yAxis: {
+                minorTickInterval: 'auto',
+                lineColor: '#000',
+                lineWidth: 1,
+                tickWidth: 1,
+                tickColor: '#000'
             },
             plotOptions: {
                 series:{
@@ -59,7 +83,9 @@ class AcsApp{
                     }
                 }
             }
-        })
+        });
+//
+//        this.chart.setOptions(<any>themeOptions);
     }
 
     public addSeries() {
@@ -96,6 +122,19 @@ class AcsApp{
 //        <any>(this.chart).redraw();
     }
 
+    private onTitleChanged(e) {
+        var title = $('#inpTitle').val();
+        var subtitle = $('#inpSubtitle').val();
+        this.chart.setTitle({text: title}, {text: subtitle});
+    }
+
+
+    private onXMinOrMaxChanged() {
+        var xmin : number = $('#inpXmin').val();
+        var xmax : number = $('#inpXmax').val();
+        if (xmax < xmin) xmax = xmin;
+        this.chart.xAxis[0].setExtremes(xmin, xmax);
+    }
 
 }
 

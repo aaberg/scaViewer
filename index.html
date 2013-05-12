@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>sca viewer</title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
     <script type="text/javascript" src="js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="script/Common.js"></script>
     <script type="text/javascript" src="script/Point.js"></script>
     <script type="text/javascript" src="script/ScaFile.js"></script>
     <script type="text/javascript" src="script/App.js"></script>
     <script type="text/javascript" src="Hicharts-3.0.1/js/highcharts.js"></script>
     <script type="text/javascript" src="Hicharts-3.0.1/js/modules/exporting.js"></script>
+    <script type="text/javascript" src="script/chart-options.js"></script>
 
     <script type="text/javascript">
 
@@ -22,15 +27,52 @@
     </script>
 </head>
 <body>
-    <div>Add files</div>
-    <div><input type="file" id="inpFile" multiple="multiple" /></div>
-    <div>
-        <ul id="divFileNames"></ul>
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+        <a class="brand" href="#">scaViewer</a>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div id="propscontainer" class="span2">
+            <label for="inpTitle">Chart title</label>
+            <input id="inpTitle" type="text" class="input-block-level" value="Chart title" />
+
+            <label for="inpsubtitle">Subtitle</label>
+            <input id="inpSubtitle" type="text" class="input-block-level" value="" />
+
+            <div>Add files</div>
+            <div><input type="file" id="inpFile" multiple="multiple" /></div>
+            <div>
+                <ul id="divFileNames"></ul>
+            </div>
+
+            <label for="inpXmin">X min</label>
+            <input id="inpXmin" type="number" class="input-block-level" value="200" />
+
+            <label for="inpXmax">X max</label>
+            <input id="inpXmax" type="number" class="input-block-level" value="500" />
+
+            <hr />
+            <label for="inpExportWidth">Export width</label>
+            <input id="inpExportWidth" type="number" class="input-block-level" value="800" />
+
+            <label for="inpExportHeight">Export height</label>
+            <input id="inpExportHeight" type="number" class="input-block-level" value="400" />
+
+        </div>
+
+        <div id="maincontainer" class="span10">
+
+
+            <div id="chartContainer" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+        </div>
     </div>
 
-    <pre id="dev"></pre>
-
-    <div id="chartContainer" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,15 @@
+body{margin-top:40px; background: #f7f7f7}
+
+#propscontainer{
+    padding: 20px 0 0 20px;
+}
+
+#maincontainer{
+    padding:20px;
+    background: #FFFFFF;
+    min-height: 1200px;
+    border-left: 1px solid #dae3e9;
+    box-shadow: -5px 0px 5px rgba(200,200,200,0.5);;
+}
+
+.container-fluid{padding:0;}

@@ -5,7 +5,15 @@ var AcsApp = (function () {
         $('#inpFile').change(function (e) {
             return _this.onFileSelected(e);
         });
+        $('#inpTitle, #inpSubtitle').keyup(function (e) {
+            return _this.onTitleChanged(e);
+        });
+        $('#inpXmin, #inpXmax').keyup(function () {
+            return _this.onXMinOrMaxChanged();
+        });
         this.initChart();
+        this.onTitleChanged(null);
+        this.onXMinOrMaxChanged();
     }
     AcsApp.prototype.onFileSelected = function (e) {
         var self = this;
@@ -27,26 +35,7 @@ var AcsApp = (function () {
         }
     };
     AcsApp.prototype.initChart = function () {
-        this.chart = new Highcharts.Chart({
-            title: {
-                text: 'bla bla'
-            },
-            chart: {
-                renderTo: 'chartContainer',
-                type: 'spline'
-            },
-            xAxis: {
-                min: 200,
-                max: 500
-            },
-            plotOptions: {
-                series: {
-                    marker: {
-                        enabled: false
-                    }
-                }
-            }
-        });
+        this.chart = new Highcharts.Chart(themeOptions);
     };
     AcsApp.prototype.addSeries = function () {
         var seriesArr = [];
@@ -68,6 +57,23 @@ var AcsApp = (function () {
             seriesArr.push(series);
             this.chart.addSeries(series);
         }, this);
+    };
+    AcsApp.prototype.onTitleChanged = function (e) {
+        var title = $('#inpTitle').val();
+        var subtitle = $('#inpSubtitle').val();
+        this.chart.setTitle({
+            text: title
+        }, {
+            text: subtitle
+        });
+    };
+    AcsApp.prototype.onXMinOrMaxChanged = function () {
+        var xmin = $('#inpXmin').val();
+        var xmax = $('#inpXmax').val();
+        if(xmax < xmin) {
+            xmax = xmin;
+        }
+        this.chart.xAxis[0].setExtremes(xmin, xmax);
     };
     return AcsApp;
 })();
