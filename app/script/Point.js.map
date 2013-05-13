@@ -1,1 +1,1 @@
-{"version":3,"file":"Point.js","sources":["Point.ts"],"names":["Point","Point.constructor"],"mappings":"AAAA;IAEIA,SAFEA,KAAKA,CAEKA,IAAmBA,EAAEA,IAAmBA;QAAxCC,SAAWA,GAAJA,IAAIA;AAAQA,QAAEA,SAAWA,GAAJA,IAAIA;AAAQA,IAEpDA,CAACA;IACLD;AAACA,CAAAA,IAAA"}
+{"version":3,"file":"Point.js","sources":["Point.ts"],"names":["Point","Point.constructor"],"mappings":"AAAA;IAEIA,SAFEA,KAAKA,CAEKA,IAAmBA,EAAEA,IAAmBA;QAAxCC,SAAWA,GAAJA,IAAIA;AAAQA,QAAEA,SAAWA,GAAJA,IAAIA;AAAQA,IAAIA,CAACA;IAC7DD;AAACA,CAAAA,IAAA"}

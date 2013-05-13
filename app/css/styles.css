@@ -1,4 +1,8 @@
-body{margin-top:40px; background: #f7f7f7}
+body{
+    margin-top:40px;
+    background: #f7f7f7;
+    line-height: 12px;
+}
 
 #propscontainer{
     padding: 20px 0 0 20px;
@@ -13,3 +17,6 @@ body{margin-top:40px; background: #f7f7f7}
 }
 
 .container-fluid{padding:0;}
+
+label{margin-bottom: 2px;}
+input{margin-bottom: 5px;}

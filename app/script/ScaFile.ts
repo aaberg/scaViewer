@@ -1,6 +1,6 @@
 ///<reference path='Point.ts' />
 ///<reference path='Common.ts' />
-///<reference path='./jquery.d.ts' />
+///<reference path='../js/jquery.d.ts' />
 class ScaFile{
 
     public file: File;
@@ -20,7 +20,7 @@ class ScaFile{
 
     constructor(file : File) {
         this.file = file;
-        this.name = file.name;
+        this.name = file.name.substring(0, file.name.lastIndexOf('.'));
     }
 
     public load(callback : () => void){

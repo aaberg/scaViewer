@@ -1,8 +1,6 @@
 class Point{
 
-    constructor(public xval: number, public yval: number) {
-
-    }
+    constructor(public xval: number, public yval: number) { }
 }
 
 

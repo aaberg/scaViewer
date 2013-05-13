@@ -3,7 +3,7 @@ var ScaFile = (function () {
         this.addedToChart = false;
         this.points = new Array();
         this.file = file;
-        this.name = file.name;
+        this.name = file.name.substring(0, file.name.lastIndexOf('.'));
     }
     ScaFile.prototype.load = function (callback) {
         var reader = new FileReader();

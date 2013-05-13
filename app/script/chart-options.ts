@@ -72,6 +72,11 @@ var themeOptions = {
         }
     },
     legend: {
+        align: 'right',
+        verticalAlign: 'top',
+        x: 0,
+        y: 50,
+        layout: 'vertical',
         itemStyle: {
             font: '9pt Trebuchet MS, Verdana, sans-serif',
             color: 'black'
@@ -84,6 +89,7 @@ var themeOptions = {
             color: 'gray'
         }
     },
+
     labels: {
         style: {
             color: '#99b'
@@ -107,7 +113,7 @@ var themeOptions = {
     },
 
     exporting: {
-        sourceHeight:450,
-        sourceWidth:800
+        sourceHeight:500,
+        sourceWidth:950
     }
 };

@@ -3,7 +3,7 @@
 <head>
     <title>sca viewer</title>
 
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
     <script type="text/javascript" src="js/jquery-2.0.0.min.js"></script>
@@ -37,6 +37,12 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div id="propscontainer" class="span2">
+
+            <div style="margin-bottom: 20px">
+                <button id="btnClearChart" type="button" class="btn btn-warning">Clear chart</button>
+                <button id="btnToggleMarkers" type="button" class="btn pull-right">Toggle markers</button>
+            </div>
+
             <label for="inpTitle">Chart title</label>
             <input id="inpTitle" type="text" class="input-block-level" value="Chart title" />
 
@@ -45,9 +51,12 @@
 
             <div>Add files</div>
             <div><input type="file" id="inpFile" multiple="multiple" /></div>
-            <div>
-                <ul id="divFileNames"></ul>
-            </div>
+            <div id="divFileNames"></div>
+
+            <hr />
+
+            <label for="inpXTitle">X axis label</label>
+            <input id="inpXTitle" type="text" class="input-block-level" value="Wavelength (nm)" />
 
             <label for="inpXmin">X min</label>
             <input id="inpXmin" type="number" class="input-block-level" value="200" />
@@ -55,12 +64,23 @@
             <label for="inpXmax">X max</label>
             <input id="inpXmax" type="number" class="input-block-level" value="500" />
 
+            <hr />
+
+            <label for="inpYTitle">Y axis label</label>
+            <input id="inpYTitle" type="text" class="input-block-level" value="Absorbance" />
+
+            <label for="inpYmin">Y min</label>
+            <input id="inpYmin" type="number" class="input-block-level" value="" />
+
+            <label for="inpYmax">Y max</label>
+            <input id="inpYmax" type="number" class="input-block-level" value="" />
+
         </div>
 
         <div id="maincontainer" class="span10">
 
 
-            <div id="chartContainer" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+            <div id="chartContainer" style="min-width: 500px; height: 500px; margin: 0 auto"></div>
 
         </div>
     </div>

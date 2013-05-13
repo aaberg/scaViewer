@@ -1,7 +1,7 @@
 ///<reference path='Point.ts' />
 ///<reference path='ScaFile.ts' />
-///<reference path='./jquery.d.ts' />
-///<reference path='./highcharts.d.ts' />
+///<reference path='../js/jquery.d.ts' />
+///<reference path='../js/highcharts.d.ts' />
 ///<reference path='Common.ts' />
 ///<reference path='chart-options.ts' />
 class AcsApp{
@@ -9,17 +9,25 @@ class AcsApp{
         $('#inpFile').change( (e) => this.onFileSelected(e));
         $('#inpTitle, #inpSubtitle').keyup( (e) => this.onTitleChanged(e));
         $('#inpXmin, #inpXmax').keyup( () => this.onXMinOrMaxChanged());
+        $('#inpYmin, #inpYmax').keyup( () => this.onYMinOrMaxChanged());
+        $('#inpXTitle, #inpYTitle').keyup( () => this.onLabelChanged());
+        $('#btnClearChart').click( () => this.onClearChartBtnClicked());
+        $('#btnToggleMarkers').click( () => this.onToggleMarkersBtnClicked());
 
         this.initChart();
 
         // initial invokes
         this.onTitleChanged(null);
         this.onXMinOrMaxChanged();
+        this.onYMinOrMaxChanged();
+        this.onLabelChanged();
     }
+
 
     public selectedFiles: ScaFile[] = new ScaFile[];
 
     private chart;
+    public markerEnabled : bool = false;
 
     public onFileSelected(e) {
 
@@ -40,50 +48,55 @@ class AcsApp{
         var listElem = $('#divFileNames');
         listElem.empty();
         for (var i = 0, f : ScaFile; f = this.selectedFiles[i]; i++) {
-            var elem = $('<li>' + f.name + '</li>');
+//            var elem = $('<div>' + f.name + '</div>');
+            var elem = $('<div></div>')
+            var input = $('<input type="text" />').val(f.name);
+            elem.append(input);
             listElem.append(elem);
+
+            input.keyup( (event) => this.onSeriesNameChange(event)).data('index', i);
         }
     }
 
     public initChart() {
 
-//        this.chart = new Highcharts.Chart(<any>themeOptions);
-        this.chart = new Highcharts.Chart(<any>{
-            title:{
-                text:'bla bla'
-            },
-            subtitle: {
-                style: {
-                    color: '#666666',
-                    font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
-                }
-            },
-            chart: {
-                renderTo: 'chartContainer',
-                type: 'spline'
-            },
-            xAxis: {
-                min:200,
-                max:500,
-                gridLineWidth: 1,
-                lineColor: '#000',
-                tickColor: '#000'
-            },
-            yAxis: {
-                minorTickInterval: 'auto',
-                lineColor: '#000',
-                lineWidth: 1,
-                tickWidth: 1,
-                tickColor: '#000'
-            },
-            plotOptions: {
-                series:{
-                    marker:{
-                        enabled : false
-                    }
-                }
-            }
-        });
+        this.chart = new Highcharts.Chart(<any>themeOptions);
+//        this.chart = new Highcharts.Chart(<any>{
+//            title:{
+//                text:'bla bla'
+//            },
+//            subtitle: {
+//                style: {
+//                    color: '#666666',
+//                    font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
+//                }
+//            },
+//            chart: {
+//                renderTo: 'chartContainer',
+//                type: 'spline'
+//            },
+//            xAxis: {
+//                min:200,
+//                max:500,
+//                gridLineWidth: 1,
+//                lineColor: '#000',
+//                tickColor: '#000'
+//            },
+//            yAxis: {
+//                minorTickInterval: 'auto',
+//                lineColor: '#000',
+//                lineWidth: 1,
+//                tickWidth: 1,
+//                tickColor: '#000'
+//            },
+//            plotOptions: {
+//                series:{
+//                    marker:{
+//                        enabled : false
+//                    }
+//                }
+//            }
+//        });
 //
 //        this.chart.setOptions(<any>themeOptions);
     }
@@ -99,7 +112,10 @@ class AcsApp{
 
             var series = {
                 data:[],
-                name: scaFile.name
+                name: scaFile.name,
+                marker: {
+                    enabled:this.markerEnabled
+                }
             };
 
             for (var i = 0, p : Point; p = scaFile.points[i]; i++) {
@@ -132,8 +148,58 @@ class AcsApp{
     private onXMinOrMaxChanged() {
         var xmin : number = $('#inpXmin').val();
         var xmax : number = $('#inpXmax').val();
+        if (!xmin) xmin = null;
+        if (!xmax) xmax = null;
         if (xmax < xmin) xmax = xmin;
         this.chart.xAxis[0].setExtremes(xmin, xmax);
+    }
+
+    private onYMinOrMaxChanged() {
+        var ymin : number = $('#inpYmin').val();
+        var ymax : number = $('#inpYmax').val();
+        if (!ymin) ymin = null;
+        if (!ymax) ymax = null;
+
+        if (ymax < ymin) ymax = ymin;
+
+        this.chart.yAxis[0].setExtremes(ymin, ymax);
+    }
+
+    private onLabelChanged() {
+        var xAxisLabel = $('#inpXTitle').val();
+        var yAxisLabel = $('#inpYTitle').val();
+
+        this.chart.xAxis[0].setTitle({text: xAxisLabel});
+        this.chart.yAxis[0].setTitle({text: yAxisLabel});
+    }
+
+    private onClearChartBtnClicked() {
+        if (confirm('This will clear all data on the page. Are you sure you want to continue?')) {
+            window.location.reload(true);
+        }
+
+    }
+
+    private onToggleMarkersBtnClicked() {
+        this.markerEnabled = !this.markerEnabled;
+        this.chart.series.forEach(function(serie){
+            serie.update({
+                marker: {
+                    enabled: this.markerEnabled
+                }
+            })
+        }, this);
+    }
+
+    private onSeriesNameChange(e) {
+        var input = $(e.target),
+            seriesName = input.val(),
+            index = input.data('index');
+
+        this.chart.series[index].update({
+            name: seriesName
+        });
+        this.selectedFiles[index].name = seriesName;
     }
 
 }
