@@ -17,7 +17,8 @@ var themeOptions = {
         plotBackgroundColor: 'rgba(255, 255, 255, .9)',
         plotShadow: true,
         plotBorderWidth: 1,
-        type: "spline"
+        type: "spline",
+        zoomType: 'xy'
     },
     title: {
         style: {

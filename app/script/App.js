@@ -60,7 +60,7 @@ var AcsApp = (function () {
     };
     AcsApp.prototype.addSeries = function () {
         var seriesArr = [];
-        this.selectedFiles.forEach(function (scaFile) {
+        this.selectedFiles.forEach(function (scaFile, index) {
             if(scaFile.addedToChart) {
                 return;
             }
@@ -73,10 +73,10 @@ var AcsApp = (function () {
                 }
             };
             for(var i = 0, p; p = scaFile.points[i]; i++) {
-                series.data.push({
-                    x: p.xval,
-                    y: p.yval
-                });
+                series.data.push([
+                    p.xval, 
+                    p.yval
+                ]);
             }
             seriesArr.push(series);
             this.chart.addSeries(series);

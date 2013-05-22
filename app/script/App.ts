@@ -103,7 +103,7 @@ class AcsApp{
 
     public addSeries() {
         var seriesArr = [];
-        this.selectedFiles.forEach(function(scaFile){
+        this.selectedFiles.forEach(function(scaFile, index){
 
             if (scaFile.addedToChart) {
                 return;
@@ -119,14 +119,12 @@ class AcsApp{
             };
 
             for (var i = 0, p : Point; p = scaFile.points[i]; i++) {
+//                if (i > 1000) break;
 //                if (p.xval < 200 ) {
 //                    var debug = 0;
 //                    continue;
 //                }
-                series.data.push({
-                    x: p.xval,
-                    y: p.yval
-                });
+                series.data.push([p.xval, p.yval]);
 //                series.data.push(p.yval);
             }
 
