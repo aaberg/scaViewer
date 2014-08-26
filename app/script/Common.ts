@@ -1,7 +1,7 @@
-///<reference path='../js/highcharts.d.ts' />
+///<reference path='../js/highcharts/highcharts.d.ts' />
 
 interface String {
-    startsWith(str:string) : bool;
+    startsWith(str:string) : boolean;
 }
 
 if (!String.prototype.startsWith) {

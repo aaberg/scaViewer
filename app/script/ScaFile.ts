@@ -1,6 +1,6 @@
 ///<reference path='Point.ts' />
 ///<reference path='Common.ts' />
-///<reference path='../js/jquery.d.ts' />
+///<reference path='../js/jquery/jquery.d.ts' />
 class ScaFile{
 
     public file: File;
@@ -13,10 +13,12 @@ class ScaFile{
     public xmin: number;
     public step: number;
     public filter: number;
+    public totalTime: number;
+    public maxNumberOfPoints: number;
 
-    public addedToChart: bool = false;
+    public addedToChart: boolean = false;
 
-    public points: Point[] = new Point[];
+    public points: Point[] = new Array<Point>();
 
     constructor(file : File) {
         this.file = file;
@@ -40,7 +42,7 @@ class ScaFile{
     readContent(content) {
         var parts : string[] = content.split('\n');
 
-        parts.forEach(function(part: string) {
+        parts.some(function(part: string) {
             if (part.startsWith('Time')){
                 this.time = this.readProperty(part);
             }
@@ -70,11 +72,45 @@ class ScaFile{
                 var debug = 0;
             }
 
+            if (part.startsWith('Total Time')) {
+                this.totalTime = this.readProperty(part);
+            }
+
             if (!isNaN(<any>part.substring(0,1) ) && part != '') {
+                return true;
+
+            }
+            return false;
+
+        }, this);
+
+        var pointCnt:number;
+        if (this.totalTime != null){
+            pointCnt = this.totalTime / this.step;
+        } else if (this.xmax != null && this.xmin != null) {
+            pointCnt = (this.xmax - this.xmin) / this.step;
+        }
+
+
+        var mod:number = 1;
+
+        if (this.totalTime > this.maxNumberOfPoints) {
+            mod = Math.ceil(pointCnt / this.maxNumberOfPoints);
+        }
+
+        var idx:number = 0;
+        parts.forEach(function(part:string) {
+
+            if (!isNaN(<any>part.substring(0,1) ) && part != '') {
+                if ((idx++ % mod) != 0) return;
                 this.points.push(this.readPoint(part));
             }
 
-        }, this);
+
+        }, this)
+
+        console.log("number of points: " + this.points.length);
+
     }
 
     readProperty(content: string) {
@@ -90,7 +126,13 @@ class ScaFile{
 
     readPoint(content:string) : Point {
         var parts = content.split(' ');
-        var point = new Point(+parts[0], +parts[1]);
+
+        var x :number = +parts[0];
+        if (this.totalTime != null) {
+            x = x / 60;
+        }
+
+        var point = new Point(x, +parts[1]);
 
         return point;
     }

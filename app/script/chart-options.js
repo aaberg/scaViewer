@@ -1,17 +1,15 @@
+///<reference path='../js/highcharts/highcharts.d.ts' />
 var themeOptions = {
-    colors: [
-        '#058DC7', 
-        '#50B432', 
-        '#ED561B', 
-        '#DDDF00', 
-        '#24CBE5', 
-        '#64E572', 
-        '#FF9655', 
-        '#FFF263', 
-        '#6AF9C4'
-    ],
+    colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
     chart: {
         renderTo: 'chartContainer',
+        //        backgroundColor: {
+        //            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+        //            stops: [
+        //                ['0', 'rgb(255, 255, 255)'],
+        //                ['1', 'rgb(240, 240, 255)']
+        //            ]
+        //        },
         borderWidth: 1,
         borderColor: 'rgba(200,200,200,0.9)',
         plotBackgroundColor: 'rgba(255, 255, 255, .9)',
@@ -113,4 +111,4 @@ var themeOptions = {
         sourceWidth: 950
     }
 };
-//@ sourceMappingURL=chart-options.js.map
+//# sourceMappingURL=chart-options.js.map

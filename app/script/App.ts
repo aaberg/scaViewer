@@ -1,7 +1,7 @@
 ///<reference path='Point.ts' />
 ///<reference path='ScaFile.ts' />
-///<reference path='../js/jquery.d.ts' />
-///<reference path='../js/highcharts.d.ts' />
+///<reference path='../js/jquery/jquery.d.ts' />
+///<reference path='../js/highcharts/highcharts.d.ts' />
 ///<reference path='Common.ts' />
 ///<reference path='chart-options.ts' />
 class AcsApp{
@@ -24,17 +24,20 @@ class AcsApp{
     }
 
 
-    public selectedFiles: ScaFile[] = new ScaFile[];
+    public selectedFiles: Array<ScaFile> = [];
 
     private chart;
-    public markerEnabled : bool = false;
+    public markerEnabled : boolean = false;
 
     public onFileSelected(e) {
 
         var self = this;
 
+        var maxNumberOfPoints:number = $('#inpMaxNumPoints').val();
+
         for (var i = 0, f; f = <File>e.target.files[i]; i++) {
             var scaFile = new ScaFile(f);
+            scaFile.maxNumberOfPoints = maxNumberOfPoints;
             this.selectedFiles.push(scaFile);
             scaFile.load(function(){
                 self.addSeries();
