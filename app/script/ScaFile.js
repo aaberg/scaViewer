@@ -75,7 +75,7 @@ var ScaFile = (function () {
 
         var mod = 1;
 
-        if (this.totalTime > this.maxNumberOfPoints) {
+        if (pointCnt > this.maxNumberOfPoints) {
             mod = Math.ceil(pointCnt / this.maxNumberOfPoints);
         }
 
