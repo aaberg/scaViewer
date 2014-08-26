@@ -33,7 +33,7 @@ class AcsApp{
 
         var self = this;
 
-        var maxNumberOfPoints:number = $('#inpMaxNumPoints').val();
+        var maxNumberOfPoints:number = +$('#inpMaxNumPoints').val();
 
         for (var i = 0, f; f = <File>e.target.files[i]; i++) {
             var scaFile = new ScaFile(f);

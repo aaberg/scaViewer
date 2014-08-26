@@ -42,7 +42,7 @@ var AcsApp = (function () {
     AcsApp.prototype.onFileSelected = function (e) {
         var self = this;
 
-        var maxNumberOfPoints = $('#inpMaxNumPoints').val();
+        var maxNumberOfPoints = +$('#inpMaxNumPoints').val();
 
         for (var i = 0, f; f = e.target.files[i]; i++) {
             var scaFile = new ScaFile(f);
